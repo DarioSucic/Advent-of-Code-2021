@@ -16,16 +16,16 @@ def floats(s: str):
 
 # --- Input -------------------------------------------------------------------
 
-def resolve_day(**kwargs) -> Path:
+def resolve_path(**kwargs) -> Path:
     for folder in kwargs.get("folders", ["inputs/{day}", "."]):
         path = Path(folder.format(**kwargs)) / "input"
         if path.exists():
             return path
 
 def read_string(**kwargs):
-    with open(resolve_day(**kwargs)) as file:
+    with open(resolve_path(**kwargs)) as file:
         return file.read()
 
 def read_lines(**kwargs):
-    with open(resolve_day(**kwargs)) as file:
+    with open(resolve_path(**kwargs)) as file:
         return list(file)

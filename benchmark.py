@@ -3,6 +3,7 @@ import os, re, gc
 from time import perf_counter_ns
 
 BENCHMARK_GLOBALS = { "print": lambda *args, **kwargs: None }
+FILENAME_RE = re.compile(r"(\d+)\_(\d+)\.py")
 
 def benchmark(filename):
     with open(filename) as file:
@@ -21,8 +22,6 @@ def benchmark(filename):
 
     return measurements
 
-FILENAME_RE = re.compile(r"(\d+)\_(\d+)\.py")
-
 results = {}
 for path in os.listdir("."):
     if not (match := FILENAME_RE.match(path)):
@@ -33,4 +32,4 @@ for path in os.listdir("."):
     measurements = benchmark(path)
     results[(day, part)] = measurements
 
-    print(f"day={day:02} part={part} {min(measurements)//10**3:>16,} µs")
+    print(f"Puzzle {day:2}.{part} {min(measurements)//10**3:>16,} µs")
