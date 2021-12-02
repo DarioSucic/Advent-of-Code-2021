@@ -1,8 +1,12 @@
 
 import os, re, gc
 from time import perf_counter_ns
+from collections import defaultdict
+
+from tabulate import tabulate
 
 BENCHMARK_GLOBALS = { "print": lambda *args, **kwargs: None }
+MILLISECOND = 10**6
 FILENAME_RE = re.compile(r"(\d+)\_(\d+)\.py")
 
 def benchmark(filename):
@@ -11,25 +15,42 @@ def benchmark(filename):
     
     code = compile(source, filename, "exec")
 
+    # Warmup run / time estimation
+    st = perf_counter_ns()
+    exec(code, BENCHMARK_GLOBALS)
+    et = perf_counter_ns()
+
+    target_time = 200*MILLISECOND
+    n = max(1, target_time // (et - st))
+
     measurements = []
-    for _ in range(10):
+    for _ in range(n):
+        gc.collect()
         st = perf_counter_ns()
         exec(code, BENCHMARK_GLOBALS)
         et = perf_counter_ns()
-
         measurements.append(et-st)
-        gc.collect()
 
     return measurements
 
-results = {}
+tmp = [path for path in os.listdir(".") if FILENAME_RE.match(path)]
+
+pairs = [(*match.groups(), path) for path in os.listdir(".") if (match := FILENAME_RE.match(path))]
+pairs.sort()
+
+
+paths = []
 for path in os.listdir("."):
-    if not (match := FILENAME_RE.match(path)):
-        continue
+    if (match := FILENAME_RE.match(path)):
+        day, part = map(int, match.groups())
+        paths.append((day, part, path))
+paths.sort()
 
-    day, part = map(int, match.groups())
-    
+results = defaultdict(dict)
+for day, part, path in paths:
     measurements = benchmark(path)
-    results[(day, part)] = measurements
+    results[day][part] = f"{min(measurements)//10**3:>10,} µs"
+    # print(f"Puzzle {day:2}.{part} {min(measurements)//10**3:>16,} µs")
 
-    print(f"Puzzle {day:2}.{part} {min(measurements)//10**3:>16,} µs")
+table = [(day, *parts.values()) for day, parts in results.items()]
+print(tabulate(table, headers=("Day", "Part 1", "Part 2"), tablefmt="github"))
