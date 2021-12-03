@@ -1,4 +1,4 @@
-import re
+import re, math
 
 from pathlib import Path
 
@@ -29,3 +29,39 @@ def read_string(**kwargs):
 def read_lines(**kwargs):
     with open(resolve_path(**kwargs)) as file:
         return list(file)
+
+# --- Graph -------------------------------------------------------------------
+
+def count_paths(key, tree, memo):
+    if key in memo: return memo[key]
+    memo[key] = sum(count_paths(k, tree, memo) for k in tree[key])
+    return memo[key]
+
+# --- Misc. -------------------------------------------------------------------
+
+def mul_inv(a, b):
+    b0 = b
+    x0, x1 = 0, 1
+    if b == 1: return 1
+    while a > 1:
+        q = a // b
+        a, b = b, a%b
+        x0, x1 = x1 - q * x0, x0
+    if x1 < 0: x1 += b0
+    return x1
+
+def crt(a, n):
+    """Chinese Remainder theorem.
+        Solves the simultaneous congruence (for x):
+
+        x ≡ aᵢ (mod nᵢ),  i ∈ 1..k
+
+        nᵢ must be pairwise coprime
+        0 ≤ aᵢ < nᵢ
+    """
+    N = math.prod(n)
+    total = 0
+    for a_i, n_i in zip(a, n):
+        p = N // n_i
+        total += a_i * mul_inv(p, n_i) * p
+    return total % N

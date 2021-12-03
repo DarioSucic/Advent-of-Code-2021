@@ -5,5 +5,6 @@ AoC repo with the goal of posting solutions exactly as they were when the stars 
 ## Runtimes
 |   Day | Part 1   | Part 2   |
 |-------|----------|----------|
-|     1 | 984 µs   | 1,770 µs |
-|     2 | 508 µs   | 547 µs   |
+|     1 | 947 µs   | 1,694 µs |
+|     2 | 495 µs   | 545 µs   |
+|     3 | 1,637 µs | 649 µs   |
