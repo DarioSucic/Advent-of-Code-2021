@@ -1,3 +1,4 @@
+from itertools import islice
 import re, math
 
 from pathlib import Path
@@ -28,7 +29,7 @@ def read_string(**kwargs):
 
 def read_lines(**kwargs):
     with open(resolve_path(**kwargs)) as file:
-        return list(file)
+        return file.read().splitlines()
 
 # --- Graph -------------------------------------------------------------------
 
@@ -65,3 +66,15 @@ def crt(a, n):
         p = N // n_i
         total += a_i * mul_inv(p, n_i) * p
     return total % N
+
+# --- Iteration / Collections -------------------------------------------------
+
+def chunks(a, k):
+    for i in range(0, len(a), k):
+        yield a[i:i+k]
+
+def take(it, n):
+    return list(islice(it, n))
+
+def nth(it, n):
+    return next(islice(it, n, None))
