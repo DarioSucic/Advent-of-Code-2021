@@ -3,6 +3,8 @@ import re, math
 
 from pathlib import Path
 
+from collections import defaultdict, Counter
+
 # --- Parsing -----------------------------------------------------------------
 
 RE_INT   = re.compile(r"\d+")
@@ -13,7 +15,6 @@ def ints(s: str):
 
 def floats(s: str):
     return list(map(float, RE_FLOAT.findall(s)))
-
 
 # --- Input -------------------------------------------------------------------
 
@@ -28,8 +29,11 @@ def read_string(**kwargs):
         return file.read()
 
 def read_lines(**kwargs):
-    with open(resolve_path(**kwargs)) as file:
-        return file.read().splitlines()
+    return read_string(**kwargs).splitlines()
+
+def read_grid(**kwargs):
+    lines = read_lines(**kwargs)
+    
 
 # --- Graph -------------------------------------------------------------------
 
