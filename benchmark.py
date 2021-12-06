@@ -33,24 +33,25 @@ def benchmark(filename):
 
     return measurements
 
-tmp = [path for path in os.listdir(".") if FILENAME_RE.match(path)]
+if __name__ == "__main__":
+    tmp = [path for path in os.listdir(".") if FILENAME_RE.match(path)]
 
-pairs = [(*match.groups(), path) for path in os.listdir(".") if (match := FILENAME_RE.match(path))]
-pairs.sort()
+    pairs = [(*match.groups(), path) for path in os.listdir(".") if (match := FILENAME_RE.match(path))]
+    pairs.sort()
 
 
-paths = []
-for path in os.listdir("."):
-    if (match := FILENAME_RE.match(path)):
-        day, part = map(int, match.groups())
-        paths.append((day, part, path))
-paths.sort()
+    paths = []
+    for path in os.listdir("."):
+        if (match := FILENAME_RE.match(path)):
+            day, part = map(int, match.groups())
+            paths.append((day, part, path))
+    paths.sort()
 
-results = defaultdict(dict)
-for day, part, path in paths:
-    measurements = benchmark(path)
-    results[day][part] = f"{min(measurements)//10**3:>10,} µs"
-    # print(f"Puzzle {day:2}.{part} {min(measurements)//10**3:>16,} µs")
+    results = defaultdict(dict)
+    for day, part, path in paths:
+        measurements = benchmark(path)
+        results[day][part] = f"{min(measurements)//10**3:>10,} µs"
+        # print(f"Puzzle {day:2}.{part} {min(measurements)//10**3:>16,} µs")
 
-table = [(day, *parts.values()) for day, parts in results.items()]
-print(tabulate(table, headers=("Day", "Part 1", "Part 2"), tablefmt="github"))
+    table = [(day, *parts.values()) for day, parts in results.items()]
+    print(tabulate(table, headers=("Day", "Part 1", "Part 2"), tablefmt="github"))
