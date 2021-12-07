@@ -7,7 +7,7 @@ from tabulate import tabulate
 
 BENCHMARK_GLOBALS = { "print": lambda *args, **kwargs: None }
 MILLISECOND = 10**6
-FILENAME_RE = re.compile(r"(\d+)\_(\d+)\.py")
+FILENAME_RE = re.compile(r"(\d+)\_(\d)\.py")
 
 def benchmark(filename):
     with open(filename) as file:
