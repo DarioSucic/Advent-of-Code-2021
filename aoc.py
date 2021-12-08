@@ -77,10 +77,3 @@ def read_lines(**kwargs):
 
 def read_grid(f=identity, **kwargs):
     return [list(map(f, line)) for line in read_lines(**kwargs)]
-    
-# --- Graph -------------------------------------------------------------------
-
-def count_paths(key, tree, memo):
-    if key in memo: return memo[key]
-    memo[key] = sum(count_paths(k, tree, memo) for k in tree[key])
-    return memo[key]
