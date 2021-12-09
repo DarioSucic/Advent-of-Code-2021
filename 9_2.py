@@ -17,7 +17,7 @@ for x in range(w):
         else:
             lows.append((x, y))
 
-def bfs(x, y, v, been):
+def dfs(x, y, v, been):
     if (x, y) in been or v == 9:
         return
     else:
@@ -27,12 +27,12 @@ def bfs(x, y, v, been):
         if grid[yy][xx] <= v:
             continue
         else:
-            bfs(xx, yy, grid[yy][xx], been)
+            dfs(xx, yy, grid[yy][xx], been)
 
 sizes = []
 for x, y in lows:
     been = set()
-    bfs(x, y, grid[y][x], been)
+    dfs(x, y, grid[y][x], been)
     sizes.append(len(been))
 
 sizes.sort()
