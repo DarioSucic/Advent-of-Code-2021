@@ -1,9 +1,9 @@
-from itertools import islice
 import re, math
 
+from itertools import islice, permutations
 from pathlib import Path
-
 from collections import defaultdict, Counter
+
 
 # --- Parsing -----------------------------------------------------------------
 
@@ -77,3 +77,14 @@ def read_lines(**kwargs):
 
 def read_grid(f=identity, **kwargs):
     return [list(map(f, line)) for line in read_lines(**kwargs)]
+
+
+def dirs(x, y, w, h):
+    if x - 1 >= 0:
+        yield x-1, y
+    if x + 1 < w:
+        yield x+1, y
+    if y - 1 >= 0:
+        yield x, y-1
+    if y + 1 < h:
+        yield x, y+1
