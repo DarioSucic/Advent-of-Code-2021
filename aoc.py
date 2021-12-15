@@ -78,6 +78,7 @@ def read_lines(**kwargs):
 def read_grid(f=identity, **kwargs):
     return [list(map(f, line)) for line in read_lines(**kwargs)]
 
+# --- Spatial -----------------------------------------------------------------
 
 def dirs(x, y, w, h, diag=False):
     if diag:
@@ -90,16 +91,6 @@ def dirs(x, y, w, h, diag=False):
         if x + 1 < w and y+1 < h:
             yield x+1, y+1
 
-    if x - 1 >= 0:
-        yield x-1, y
-    if x + 1 < w:
-        yield x+1, y
-    if y - 1 >= 0:
-        yield x, y-1
-    if y + 1 < h:
-        yield x, y+1
-
-def dirs(x, y, w, h):
     if x - 1 >= 0:
         yield x-1, y
     if x + 1 < w:
