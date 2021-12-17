@@ -5,3 +5,5 @@ cache*.json
 leaderboard.py
 download.py
 aoc_old.py
+
+__*

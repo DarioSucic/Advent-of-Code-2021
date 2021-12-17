@@ -7,7 +7,7 @@ from collections import defaultdict, Counter
 
 # --- Parsing -----------------------------------------------------------------
 
-RE_INT   = re.compile(r"\d+")
+RE_INT   = re.compile(r"-?\d+")
 RE_FLOAT = re.compile(r"\d?\.\d+")
 
 def ints(s: str):
