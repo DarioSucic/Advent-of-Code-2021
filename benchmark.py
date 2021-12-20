@@ -49,8 +49,10 @@ if __name__ == "__main__":
 
     results = defaultdict(dict)
     for day, part, path in paths:
+        print(path, flush=False, end="\t")
         measurements = benchmark(path)
         results[day][part] = f"{min(measurements)//10**3:>10,} µs"
+        print(results[day][part])
         # print(f"Puzzle {day:2}.{part} {min(measurements)//10**3:>16,} µs")
 
     table = [(day, *parts.values()) for day, parts in results.items()]
