@@ -58,7 +58,7 @@ s = set()
 from random import random
 
 best = -float("inf")
-for dx, dy in product(range(-400, 400), range(-400, 400)):
+for dx, dy in product(range(1, 400), range(-400, 400)):
     h, yy = sim(dx, dy)
     
     if h:
