@@ -2,10 +2,10 @@ from collections import deque
 from aoc import *
 
 lines = read_lines(day=14)
-txt = read_string(day=14)
+txt = read_string(day=14).strip()
 
 a, b = txt.split("\n\n")
-b = b.split("\n")[:-1]
+b = b.split("\n")
 d = dict(l.split(" -> ") for l in b)
 
 t = {}

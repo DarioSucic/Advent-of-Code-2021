@@ -70,7 +70,7 @@ def resolve_path(**kwargs) -> Path:
 
 def read_string(**kwargs):
     with open(resolve_path(**kwargs)) as file:
-        return file.read()
+        return file.read().strip()
 
 def read_lines(**kwargs):
     return read_string(**kwargs).splitlines()
