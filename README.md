@@ -27,3 +27,4 @@ AoC repo with the goal of posting solutions exactly as they were when the stars 
 |    20 | 59,305 µs    | 3,338,282 µs |              |
 |    21 | 400 µs       | 159,186 µs   |              |
 |    22 | 527,115 µs   | 1,184,008 µs | 1,026,258 µs |
+|    24 | 1,920,480 µs | 2,081,965 µs |   493,764 µs |

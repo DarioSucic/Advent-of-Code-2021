@@ -6,7 +6,7 @@ from collections import defaultdict
 from tabulate import tabulate
 
 # Import these outside benchmark to avoid skewing result
-import numpy, numba
+import numpy
 
 BENCHMARK_GLOBALS = { "print": lambda *args, **kwargs: None }
 MILLISECOND = 10**6
